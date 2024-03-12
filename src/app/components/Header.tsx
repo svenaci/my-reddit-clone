@@ -1,14 +1,26 @@
 import {
   ChevronDownIcon,
+  Bars3Icon,
   HomeIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/16/solid";
+
+import {
+  BellIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+  GlobeAmericasIcon,
+  MegaphoneIcon,
+  PlusIcon,
+  SparklesIcon,
+  VideoCameraIcon,
+} from "@heroicons/react/24/outline";
+
 import Image from "next/image";
 import React from "react";
 
 function Header() {
   return (
-    <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm">
+    <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm items-center">
       <div className="relative flex-shrink-0 cursor-pointer">
         <Image
           objectFit="contain"
@@ -35,6 +47,20 @@ function Header() {
         />
         <button type="submit" hidden />
       </form>
+
+      <div className=" text-gray-500 space-x-2 items-center mx-5 hidden lg:inline-flex">
+        <SparklesIcon className="icon" />
+        <GlobeAmericasIcon className="icon" />
+        <VideoCameraIcon className="icon" />
+        <hr className="h-10 border border-gray-100" />
+        <ChatBubbleOvalLeftEllipsisIcon className="icon" />
+        <BellIcon className="icon" />
+        <PlusIcon className="icon" />
+        <MegaphoneIcon className="icon" />
+      </div>
+      <div className="ml-5 flex items-center lg:hidden">
+        <Bars3Icon className="icon" />
+      </div>
     </div>
   );
 }
