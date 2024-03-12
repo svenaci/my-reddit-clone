@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChevronDownIcon,
   Bars3Icon,
@@ -14,6 +16,7 @@ import {
   SparklesIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
+import { signIn } from "next-auth/react";
 
 import Image from "next/image";
 import React from "react";
@@ -63,7 +66,10 @@ function Header() {
         <Bars3Icon className="icon" />
       </div>
 
-      <div className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer">
+      <div
+        onClick={() => signIn()}
+        className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer"
+      >
         <div className="relative h-5 w-5 flex-shrink-0">
           <Image
             objectFit="contain"
