@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChevronDownIcon,
   Bars3Icon,
@@ -18,6 +20,8 @@ import { signIn } from "next-auth/react";
 
 import Image from "next/image";
 import React from "react";
+
+import { useSession } from "next-auth/react";
 
 function Header() {
   return (
@@ -65,7 +69,9 @@ function Header() {
       </div>
 
       <div
-        onClick={() => signIn()}
+        onClick={() =>
+          signIn("google", { callbackUrl: "http://localhost:3000" })
+        }
         className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer"
       >
         <div className="relative h-5 w-5 flex-shrink-0">
