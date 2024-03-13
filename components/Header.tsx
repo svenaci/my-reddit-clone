@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ChevronDownIcon,
   Bars3Icon,
@@ -16,14 +14,13 @@ import {
   SparklesIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import Image from "next/image";
 import React from "react";
 
-import { useSession } from "next-auth/react";
-
 function Header() {
+  const { data: session } = useSession();
   return (
     <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm items-center">
       <div className="relative flex-shrink-0 cursor-pointer">
@@ -68,20 +65,37 @@ function Header() {
         <Bars3Icon className="icon" />
       </div>
 
-      <div
-        onClick={() => signIn("reddit")}
-        className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer"
-      >
-        <div className="relative h-5 w-5 flex-shrink-0">
-          <Image
-            objectFit="contain"
-            layout="fill"
-            src="/vercel.svg"
-            alt="Vercel Logo"
-          />
+      {session ? (
+        <div
+          onClick={() => signOut()}
+          className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer"
+        >
+          <div className="relative h-5 w-5 flex-shrink-0">
+            <Image
+              objectFit="contain"
+              layout="fill"
+              src="/vercel.svg"
+              alt="Vercel Logo"
+            />
+          </div>
+          <p className="text-gray-400">Sign out</p>
         </div>
-        <p className="text-gray-400">Sign in</p>
-      </div>
+      ) : (
+        <div
+          onClick={() => signIn()}
+          className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer"
+        >
+          <div className="relative h-5 w-5 flex-shrink-0">
+            <Image
+              objectFit="contain"
+              layout="fill"
+              src="/vercel.svg"
+              alt="Vercel Logo"
+            />
+          </div>
+          <p className="text-gray-400">Sign in</p>
+        </div>
+      )}
     </div>
   );
 }
