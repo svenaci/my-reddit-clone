@@ -69,9 +69,7 @@ function Header() {
       </div>
 
       <div
-        onClick={() =>
-          signIn("google", { callbackUrl: "http://localhost:3000" })
-        }
+        onClick={() => signIn("reddit")}
         className="hidden lg:flex items-center space-x-2 border border-gray-100 p-2 cursor-pointer"
       >
         <div className="relative h-5 w-5 flex-shrink-0">
