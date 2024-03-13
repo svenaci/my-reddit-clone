@@ -22,7 +22,7 @@ import React from "react";
 function Header() {
   const { data: session } = useSession();
   return (
-    <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm items-center">
+    <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm items-center bg-white">
       <div className="relative flex-shrink-0 cursor-pointer">
         <Image
           objectFit="contain"
@@ -78,7 +78,12 @@ function Header() {
               alt="Vercel Logo"
             />
           </div>
-          <p className="text-gray-400">Sign out</p>
+          <div className="flex-1 text-xs">
+            <p className="truncate">{session?.user?.name}</p>
+            <p className="text-gray-400">1 Karma</p>
+          </div>
+
+          <ChevronDownIcon className="h-5 flex-shrink-0 text-gray-400" />
         </div>
       ) : (
         <div
