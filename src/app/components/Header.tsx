@@ -23,7 +23,6 @@ import React from "react";
 
 function Header() {
   const { data: session } = useSession();
-
   return (
     <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm items-center">
       <div className="relative flex-shrink-0 cursor-pointer">

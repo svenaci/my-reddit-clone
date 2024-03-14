@@ -4,6 +4,8 @@ import "./globals.css";
 import { Provider } from "./provider";
 import Header from "./components/Header";
 
+import { ApolloProvider } from "./apolloProvider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,13 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Provider>
-          {children}
-          <Header />
-        </Provider>
-      </body>
-    </html>
+    <ApolloProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Provider>
+            {children}
+            <Header />
+          </Provider>
+        </body>
+      </html>
+    </ApolloProvider>
   );
 }
