@@ -4,8 +4,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "links.papareact.com",
-        pathname: "**",
+        hostname: "api.dicebear.com",
+        pathname: "/**",
       },
     ],
   },

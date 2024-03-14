@@ -5,6 +5,7 @@ import { Provider } from "./provider";
 import Header from "./components/Header";
 
 import { ApolloProvider } from "./apolloProvider";
+import PostBox from "./components/PostBox";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,9 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Provider>
-            {children}
             <Header />
+            <PostBox />
+            {children}
           </Provider>
         </body>
       </html>
