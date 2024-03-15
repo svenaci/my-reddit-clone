@@ -5,6 +5,7 @@ import { Provider } from "./provider";
 import Header from "./components/Header";
 
 import { ApolloProvider } from "./apolloProvider";
+import { Toaster } from "react-hot-toast";
 import PostBox from "./components/PostBox";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +25,11 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Provider>
+            <Toaster />
             <Header />
+            <div className="max-w-5xl my-7 mx-auto">
+              <PostBox />
+            </div>
             {children}
           </Provider>
         </body>
