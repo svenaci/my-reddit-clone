@@ -24,12 +24,20 @@ function PostBox() {
     formState: { errors },
   } = useForm<FormData>();
 
+  const onSubmit = handleSubmit(async (formData) => {
+    console.log(formData);
+  });
+
   return (
-    <form className="sticky top-16 z-50 bg-white border border-gray-300 rounded-md p-2">
+    <form
+      onSubmit={onSubmit}
+      className="sticky top-16 z-50 bg-white border border-gray-300 rounded-md p-2"
+    >
       <div className="flex items-center space-x-3">
         <Avatar />
         <input
           {...register("postTitle", { required: true })}
+          aria-invalid={errors.postTitle ? "true" : "false"}
           disabled={!session}
           className="rounded-md flex-1 bg-gray-50 p-2 pl-5 outline-none"
           type="text"
@@ -62,7 +70,8 @@ function PostBox() {
             <p className="min-w-[90px]">Subreddit:</p>
             <input
               className="m-2 flex-1 bg-blue-50 p-2 outline-none"
-              {...register("subreddit")}
+              {...register("subreddit", { required: true })}
+              aria-invalid={errors.subreddit ? "true" : "false"}
               type="text"
               placeholder="i.e. reactjs"
             />
@@ -73,7 +82,7 @@ function PostBox() {
               <p className="min-w-[90px]">Image URL:</p>
               <input
                 className="m-2 flex-1 bg-blue-50 p-2 outline-none"
-                {...register("postImage", { required: true })}
+                {...register("postImage")}
                 type="text"
                 placeholder="Optional..."
               />
@@ -81,7 +90,7 @@ function PostBox() {
           )}
 
           {Object.keys(errors).length > 0 && (
-            <div>
+            <div className="space-y-2 p-2 text-red-500">
               {errors.postTitle?.type === "required" && (
                 <p> A post title is required </p>
               )}
@@ -90,6 +99,15 @@ function PostBox() {
                 <p> A subreddit is required </p>
               )}
             </div>
+          )}
+
+          {!!watch("postTitle") && (
+            <button
+              type="submit"
+              className="w-full rounded-full bg-blue-400 p-2 text-white"
+            >
+              Create Post
+            </button>
           )}
         </div>
       )}
