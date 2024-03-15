@@ -27,9 +27,6 @@ export default function RootLayout({
           <Provider>
             <Toaster />
             <Header />
-            <div className="max-w-5xl my-7 mx-auto">
-              <PostBox />
-            </div>
             {children}
           </Provider>
         </body>
