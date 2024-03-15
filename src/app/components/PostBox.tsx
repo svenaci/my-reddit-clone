@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { ADD_POST, ADD_SUBREDDIT } from "../../../graphql/mutations";
 import client from "../../../apollo-client";
-import { GET_SUBREDDIT_BY_TPOIC } from "../../../graphql/queries";
+import { GET_SUBREDDIT_BY_TOPIC } from "../../../graphql/queries";
 import toast from "react-hot-toast";
 
 type FormData = {
@@ -40,7 +40,7 @@ function PostBox() {
       const {
         data: { subredditListByTopic },
       } = await client.query({
-        query: GET_SUBREDDIT_BY_TPOIC,
+        query: GET_SUBREDDIT_BY_TOPIC,
         variables: {
           topic: formData.subreddit,
         },
