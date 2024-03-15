@@ -6,7 +6,6 @@ import Header from "./components/Header";
 
 import { ApolloProvider } from "./apolloProvider";
 import { Toaster } from "react-hot-toast";
-import PostBox from "./components/PostBox";
 
 const inter = Inter({ subsets: ["latin"] });
 

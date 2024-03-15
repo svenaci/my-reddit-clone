@@ -16,13 +16,13 @@ type Post {
   username: String
   votes: [Vote]
     @materializer(
-      query "votesByPostId"
-      arguments: [{ name: "post_id", , field: "id" }]
+      query: "votesByPostId"
+      arguments: [{ name: "post_id", field: "id" }]
     )
   comments: [Comment]
     @materializer(
-      query "commentsByPostId"
-      arguments: [{ name: "post_id", , field: "id" }]
+      query: "commentsByPostId"
+      arguments: [{ name: "post_id", field: "id" }]
     )
   subreddit: [Subreddit]
     @materializer(
@@ -60,7 +60,7 @@ type Query {
     )
 
   votesByPostId(post_id: ID!): [Vote]
-      @dbquery(
+    @dbquery(
       type: "postgresql"
       schema: "public"
       query: """
@@ -71,7 +71,7 @@ type Query {
     )
 
   commentsByPostId(post_id: ID!): [Comment]
-      @dbquery(
+    @dbquery(
       type: "postgresql"
       schema: "public"
       query: """
