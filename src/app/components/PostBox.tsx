@@ -73,10 +73,22 @@ function PostBox() {
               <p className="min-w-[90px]">Image URL:</p>
               <input
                 className="m-2 flex-1 bg-blue-50 p-2 outline-none"
-                {...register("postImage")}
+                {...register("postImage", { required: true })}
                 type="text"
                 placeholder="Optional..."
               />
+            </div>
+          )}
+
+          {Object.keys(errors).length > 0 && (
+            <div>
+              {errors.postTitle?.type === "required" && (
+                <p> A post title is required </p>
+              )}
+
+              {errors.subreddit?.type === "required" && (
+                <p> A subreddit is required </p>
+              )}
             </div>
           )}
         </div>
