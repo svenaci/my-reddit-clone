@@ -5,8 +5,8 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   BookmarkIcon,
-  Chatal,
-  Dots,
+  ChatBubbleLeftEllipsisIcon,
+  EllipsisHorizontalIcon,
   GiftIcon,
   ShareIcon,
 } from "@heroicons/react/24/outline";
@@ -37,9 +37,35 @@ function Post({ post }: Props) {
             {post.username} <TimeAgo date={post.created_at} />
           </p>
         </div>
-      </div>
-      <div>
-        <div></div>
+
+        <div className="py-4">
+          <h2 className="text-xl font-semibold">{post.title}</h2>
+          <p className="mt-2 text-sm font-light">{post.body}</p>
+        </div>
+
+        <img className="w-full" src={post.image} alt="" />
+
+        <div className="flex space-x-4 text-gray-400">
+          <div className="postButtons">
+            <ChatBubbleLeftEllipsisIcon className="h-6 w-6" />
+            <p className="">{post.comments.length} Comments</p>
+          </div>
+          <div className="postButtons">
+            <GiftIcon className="h-6 w-6" />
+            <p className="hidden sm:inline">Award</p>
+          </div>
+          <div className="postButtons">
+            <ShareIcon className="h-6 w-6" />
+            <p className="hidden sm:inline">Share</p>
+          </div>
+          <div className="postButtons">
+            <BookmarkIcon className="h-6 w-6" />
+            <p className="hidden sm:inline">Save</p>
+          </div>
+          <div className="postButtons">
+            <EllipsisHorizontalIcon className="h-6 w-6" />
+          </div>
+        </div>
       </div>
     </div>
   );
