@@ -6,8 +6,8 @@ import Post from "./Post";
 
 function Feed() {
   const { loading, data, error } = useQuery(GET_POST_LIST);
-  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
+
   const posts: Post[] = data?.postList;
 
   return (
