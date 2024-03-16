@@ -12,7 +12,7 @@ function Avatar({ seed, large }: Props) {
       }`}
     >
       <img
-        src="https://api.dicebear.com/7.x/open-peeps/svg?seed=Dusty"
+        src={`https://api.dicebear.com/7.x/open-peeps/svg?seed=${seed}`}
         alt="avatar"
       />
     </div>
