@@ -38,7 +38,7 @@ function PostBox() {
   } = useForm<FormData>();
 
   const onSubmit = handleSubmit(async (formData) => {
-    console.log(formData);
+    console.log("formData", formData);
     const notification = toast.loading("Creating new post...");
 
     try {
@@ -50,7 +50,7 @@ function PostBox() {
           topic: formData.subreddit,
         },
       });
-
+      console.log("subredditListByTopic", subredditListByTopic);
       const subredditExists = subredditListByTopic.length > 0;
 
       if (!subredditExists) {
