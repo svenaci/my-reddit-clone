@@ -20,6 +20,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 function Header() {
   const { data: session } = useSession();
@@ -27,14 +28,16 @@ function Header() {
   return (
     <div className="sticky-top-0 z-50 flex px-4 py-2 shadow-sm items-center bg-white">
       <div className="relative flex-shrink-0 cursor-pointer">
-        <Image
-          objectFit="contain"
-          src="/vercel.svg"
-          alt="Vercel Logo"
-          width={100}
-          height={24}
-          priority
-        />
+        <Link href="/">
+          <Image
+            objectFit="contain"
+            src="/vercel.svg"
+            alt="Vercel Logo"
+            width={100}
+            height={24}
+            priority
+          />
+        </Link>
       </div>
 
       <div className="flex items-center mx-7 xl:min-w-[300px]">
