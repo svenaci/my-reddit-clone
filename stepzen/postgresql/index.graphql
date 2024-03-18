@@ -70,7 +70,7 @@ type Query {
       configuration: "postgresql_config"
     )
 
-  postListByTopic(topic String!): [Post]
+  postListByTopic(topic: String!): [Post]
     @dbquery(
       type: "postgresql"
       query: """
