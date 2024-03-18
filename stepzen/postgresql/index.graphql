@@ -81,6 +81,16 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
+  postByPostId(post_id: ID!): Post
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select * "post"
+      where "post"."id" = $1
+      """
+      configuration: "postgresql_config"
+    )
   commentsByPostId(post_id: ID!): [Comment]
     @dbquery(
       type: "postgresql"
