@@ -13,6 +13,8 @@ import {
 import Avatar from "./Avatar";
 import TimeAgo from "react-timeago";
 
+import Link from "next/link";
+
 type Props = {
   post: Post;
 };
@@ -30,9 +32,11 @@ function Post({ post }: Props) {
         <div className="flex items-center space-x-2">
           <Avatar seed={post.subreddit[0]?.topic} />
           <p className="text-xs text-gray-400">
-            <span className="font-bold text-black hover:text-blue-400 hover:underline">
-              r/{post.subreddit[0]?.topic}
-            </span>{" "}
+            <Link href={`/subreddit/${post.subreddit[0]?.topic}`}>
+              <span className="font-bold text-black hover:text-blue-400 hover:underline">
+                r/{post.subreddit[0]?.topic}
+              </span>
+            </Link>{" "}
             • Posted by u/
             {post.username} <TimeAgo date={post.created_at} />
           </p>
