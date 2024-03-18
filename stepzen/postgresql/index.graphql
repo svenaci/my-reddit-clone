@@ -70,6 +70,17 @@ type Query {
       configuration: "postgresql_config"
     )
 
+  postListByTopic(topic String!): [Post]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select *, "post".id as id from "post"
+      join "subreddit" on "subreddit"."id" = "post"."subreddit_id"
+      where "subreddit"."topic" = $1
+      order by "post"."created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
   commentsByPostId(post_id: ID!): [Comment]
     @dbquery(
       type: "postgresql"
