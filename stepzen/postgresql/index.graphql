@@ -85,9 +85,9 @@ type Query {
   postByPostId(post_id: ID!): Post
     @dbquery(
       type: "postgresql"
+      schema: "public"
       query: """
-      select * "post"
-      where "post"."id" = $1
+      select * from "post" where "post"."id" = $1
       """
       configuration: "postgresql_config"
     )
