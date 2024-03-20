@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import {
   ArrowDownIcon,
@@ -14,12 +14,37 @@ import Avatar from "./Avatar";
 import TimeAgo from "react-timeago";
 import { Jelly } from "@uiball/loaders";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_ALL_VOTES_BY_POST_ID } from "../../../graphql/queries";
+import { ADD_VOTE } from "../../../graphql/mutations";
 
 type Props = {
   post: Post;
 };
 
 function Post({ post }: Props) {
+  const [vote, setVote] = useState<boolean>();
+  const { data: session } = useSession();
+
+  const { loading, data, error } = useQuery(GET_ALL_VOTES_BY_POST_ID, {
+    variables: {
+      post_id: post?.id,
+    },
+  });
+
+  if (error) return `Error! ${error.message}`;
+
+  const [addVote] = useMutation(ADD_VOTE, {
+    refetchQueries: [GET_ALL_VOTES_BY_POST_ID, "votesByPostId"],
+  });
+  const upVote = async (isUpvote: boolean) => {
+    if (!session) {
+      toast("You need to sign in to vote!");
+    }
+  };
+
   if (!post)
     return (
       <div className="flex w-full items-center justify-center p-10 text-xl">
@@ -31,9 +56,15 @@ function Post({ post }: Props) {
     <Link href={`/post/${post.id}`}>
       <div className="flex cursor-pointer rounded-md border border-gray-300 bg-white shadow-sm hover:border hover:border-gray-600">
         <div className="flex flex-col items-center justify-start space-y-1 rounded-l-md bg-gray-50 p-4 text-gray-400">
-          <ArrowUpIcon className="voteButtons hover:text-red-400" />
+          <ArrowUpIcon
+            onClick={() => upVote(true)}
+            className="voteButtons hover:text-red-400"
+          />
           <p className="text-xs font-bold text-black">0</p>
-          <ArrowDownIcon className="voteButtons hover:text-blue-400" />
+          <ArrowDownIcon
+            onClick={() => upVote(false)}
+            className="voteButtons hover:text-blue-400"
+          />
         </div>
 
         <div className="p-3 pb-1">
