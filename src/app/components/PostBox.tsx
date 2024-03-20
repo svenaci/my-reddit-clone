@@ -42,7 +42,6 @@ function PostBox({ subreddit }: Props) {
   } = useForm<FormData>();
 
   const onSubmit = handleSubmit(async (formData) => {
-    console.log("formData", formData);
     const notification = toast.loading("Creating new post...");
 
     try {
@@ -54,7 +53,6 @@ function PostBox({ subreddit }: Props) {
           topic: subreddit || formData.subreddit,
         },
       });
-      console.log("subredditListByTopic", subredditListByTopic);
       const subredditExists = subredditListByTopic.length > 0;
 
       if (!subredditExists) {
@@ -68,8 +66,6 @@ function PostBox({ subreddit }: Props) {
             topic: formData.subreddit,
           },
         });
-
-        console.log("Creatinf post", formData);
 
         //protect from undefined. cast to empty string
         const image = formData.postImage || "";
@@ -85,12 +81,9 @@ function PostBox({ subreddit }: Props) {
             username: session?.user?.name,
           },
         });
-
-        console.log("NEw post added", newPost);
       } else {
         //use exisiting subreddit
         console.log("Using existing subreddit!");
-        console.log(subredditListByTopic);
 
         const image = formData.postImage || "";
 
@@ -105,7 +98,6 @@ function PostBox({ subreddit }: Props) {
             username: session?.user?.name,
           },
         });
-        console.log("NEw post added", newPost);
       }
 
       //After post has been added
