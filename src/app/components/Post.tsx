@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   ArrowDownIcon,
@@ -34,15 +34,44 @@ function Post({ post }: Props) {
     },
   });
 
-  if (error) return `Error! ${error.message}`;
+  useEffect(() => {
+    const votes: Vote[] = data?.votesByPostId;
 
+    //Latest vote as we sorted by newely created first in SQL query
+    //Note: you could improve this by moving it to the original query
+    const vote = votes?.find(
+      (vote) => vote.username == session?.user?.name
+    )?.upvote;
+
+    //see if user has voted
+    setVote(vote);
+  }, [data]);
+
+  console.log("data", data);
   const [addVote] = useMutation(ADD_VOTE, {
     refetchQueries: [GET_ALL_VOTES_BY_POST_ID, "votesByPostId"],
   });
+
   const upVote = async (isUpvote: boolean) => {
     if (!session) {
       toast("You need to sign in to vote!");
     }
+
+    //if user has already voted on a post and trying to upvote do nothing and return
+    if (vote && isUpvote) return;
+
+    //if user has already downvoted and is trying to downvote again then do nothing and return
+    if (vote === false && !isUpvote) return;
+
+    console.log("voting", isUpvote);
+
+    await addVote({
+      variables: {
+        post_id: post.id,
+        username: session?.user?.name,
+        upvote: isUpvote,
+      },
+    });
   };
 
   if (!post)
@@ -58,12 +87,16 @@ function Post({ post }: Props) {
         <div className="flex flex-col items-center justify-start space-y-1 rounded-l-md bg-gray-50 p-4 text-gray-400">
           <ArrowUpIcon
             onClick={() => upVote(true)}
-            className="voteButtons hover:text-red-400"
+            className={`voteButtons hover:text-blue-400 ${
+              vote && "text-blue-400"
+            }`}
           />
-          <p className="text-xs font-bold text-black">0</p>
+          <p className="text-xs font-bold text-black"></p>
           <ArrowDownIcon
             onClick={() => upVote(false)}
-            className="voteButtons hover:text-blue-400"
+            className={`voteButtons hover:text-red-400 ${
+              vote === false && "text-red-400"
+            }`}
           />
         </div>
 
