@@ -47,7 +47,6 @@ function Post({ post }: Props) {
     setVote(vote);
   }, [data]);
 
-  console.log("data", data);
   const [addVote] = useMutation(ADD_VOTE, {
     refetchQueries: [GET_ALL_VOTES_BY_POST_ID, "votesByPostId"],
   });
@@ -63,8 +62,6 @@ function Post({ post }: Props) {
     //if user has already downvoted and is trying to downvote again then do nothing and return
     if (vote === false && !isUpvote) return;
 
-    console.log("voting", isUpvote);
-
     await addVote({
       variables: {
         post_id: post.id,
@@ -72,6 +69,22 @@ function Post({ post }: Props) {
         upvote: isUpvote,
       },
     });
+  };
+
+  const displayVotes = (data: any) => {
+    const votes: Vote[] = data?.votesByPostId;
+    const displayNumer = votes?.reduce(
+      (total, vote) => (vote.upvote ? (total += 1) : (total -= 1)),
+      0
+    );
+
+    if (votes?.length === 0) return 0;
+
+    if (displayNumer === 0) {
+      return votes[0]?.upvote ? 1 : -1;
+    }
+
+    return displayNumer;
   };
 
   if (!post)
@@ -91,7 +104,7 @@ function Post({ post }: Props) {
               vote && "text-blue-400"
             }`}
           />
-          <p className="text-xs font-bold text-black"></p>
+          <p className="text-xs font-bold text-black">{displayVotes(data)}</p>
           <ArrowDownIcon
             onClick={() => upVote(false)}
             className={`voteButtons hover:text-red-400 ${
