@@ -1,5 +1,6 @@
 import Feed from "./components/Feed";
 import PostBox from "./components/PostBox";
+import SubredditCommunityBox from "./components/SubredditCommunityBox";
 
 export default async function Home() {
   return (
@@ -10,11 +11,7 @@ export default async function Home() {
         <div className="flex">
           <Feed />
           <div className="sticky top-36 mx-5 mt-5 hidden h-fit min-w-[300px] rounded-md border border-gray-300 bg-white lg:inline">
-            <p className="text-md mb-1 p-4 pb-3 font-bold">
-              Reddit Communities
-            </p>
-
-            <div></div>
+            <SubredditCommunityBox />
           </div>
         </div>
       </div>
