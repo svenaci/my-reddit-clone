@@ -9,6 +9,11 @@ export default async function Home() {
         <PostBox />
         <div className="flex">
           <Feed />
+          <div className="sticky top-36 mx-5 mt-5 hidden h-fit min-w-[300px] rounded-md border border-gray-300 bg-white lg:inline">
+            <p>Top Communities</p>
+
+            <div></div>
+          </div>
         </div>
       </div>
     </div>
