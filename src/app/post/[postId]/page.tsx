@@ -23,14 +23,6 @@ function PostPage() {
     refetchQueries: [GET_POST_BY_POST_ID, "postByPostId"],
   });
 
-  const { loading, data, error } = useQuery(GET_POST_BY_POST_ID, {
-    variables: {
-      post_id: postId,
-    },
-  });
-  if (error) return `Error! ${error.message}`;
-  const post: Post = data?.postByPostId;
-
   const {
     register,
     handleSubmit,
@@ -57,9 +49,13 @@ function PostPage() {
       id: notification,
     });
   });
-  // const onSubmit: SubmitHandler<FormData> = async (data) => {
-
-  // };
+  const { loading, data, error } = useQuery(GET_POST_BY_POST_ID, {
+    variables: {
+      post_id: postId,
+    },
+  });
+  if (error) return `Error! ${error.message}`;
+  const post: Post = data?.postByPostId;
 
   return (
     <div className="mx-auto my-7 max-w-5xl">
@@ -74,6 +70,7 @@ function PostPage() {
           <textarea
             {...register("comment")}
             disabled={!session}
+            aria-invalid={errors.comment ? "true" : "false"}
             className="h-24 rounded-md border border-gray-200 p-2 pl-4 outline-none disabled:bg-gray-50"
             placeholder={
               session ? "what are your thoughts" : "Please sign in to comment"
