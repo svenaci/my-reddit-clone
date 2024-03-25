@@ -1,16 +1,5 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import RedditProvider from "next-auth/providers/reddit";
-
-export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
-  //https://medium.com/@rezahedi/using-nextauth-authentication-provider-in-next-js-by-app-router-f50cb23282c9
-  providers: [
-    RedditProvider({
-      clientId: process.env.REDDIT_CLIENT_ID,
-      clientSecret: process.env.REDDIT_CLIENT_SECRET,
-    }),
-  ],
-};
+import NextAuth from "next-auth";
+import { authOptions } from "@/app/lib/authOptions";
 
 const handler = NextAuth(authOptions);
 
