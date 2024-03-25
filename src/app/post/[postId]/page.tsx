@@ -39,14 +39,14 @@ function PostPage() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit = handleSubmit(async (formData) => {
     const notification = toast.loading("Posting your comment...");
 
     await addComment({
       variables: {
         post_id: postId,
         username: session?.user?.name,
-        text: data.comment,
+        text: formData.comment,
       },
     });
 
@@ -56,7 +56,10 @@ function PostPage() {
     toast.success("Comment successfully posted!", {
       id: notification,
     });
-  };
+  });
+  // const onSubmit: SubmitHandler<FormData> = async (data) => {
+
+  // };
 
   return (
     <div className="mx-auto my-7 max-w-5xl">
@@ -67,10 +70,7 @@ function PostPage() {
           Comment as <span>{session?.user?.name}</span>
         </p>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2"
-        >
+        <form onSubmit={onSubmit} className="flex flex-col space-y-2">
           <textarea
             {...register("comment")}
             disabled={!session}
