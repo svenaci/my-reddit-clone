@@ -12,7 +12,7 @@ type Props = {
 };
 
 function Feed({ topic }: Props) {
-  const { loading, data, error } = useQuery(
+  const { data, error } = useQuery(
     !topic ? GET_POST_LIST : GET_ALL_POSTS_BY_TOPIC,
     {
       variables: !topic

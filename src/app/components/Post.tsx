@@ -28,11 +28,13 @@ function Post({ post }: Props) {
   const [vote, setVote] = useState<boolean>();
   const { data: session } = useSession();
 
-  const { loading, data, error } = useQuery(GET_ALL_VOTES_BY_POST_ID, {
+  const { data, error } = useQuery(GET_ALL_VOTES_BY_POST_ID, {
     variables: {
       post_id: post?.id,
     },
   });
+
+  if (error) return `Error! ${error.message}`;
 
   useEffect(() => {
     const votes: Vote[] = data?.votesByPostId;
